@@ -1,0 +1,7 @@
+[requires]
+  libsigcpp/3.0.7
+  fmt/10.0.0
+
+
+[generators]
+  cmake_find_package
