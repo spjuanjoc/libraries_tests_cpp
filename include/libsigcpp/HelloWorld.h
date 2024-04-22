@@ -13,6 +13,9 @@
 
 #include <sigc++/sigc++.h>
 
+namespace sigcpp
+{
+
 static void
 onPrint(const std::string& message)
 {
@@ -28,3 +31,5 @@ runSigcpp()
 
   signal_print.emit("hello sigc++-3\n");
 }
+
+}  // namespace sigcpp

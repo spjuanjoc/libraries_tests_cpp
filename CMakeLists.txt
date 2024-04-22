@@ -1,14 +1,14 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.22.1)
 
 project(signals_cpp
   VERSION "0.0.1"
-  DESCRIPTION "Signals in C++"
+  DESCRIPTION "Signals and slots in C++"
   LANGUAGES CXX
 )
 
 
 ## Set the project as an executable target
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp)
 
 
 ## Setup Conan < 2.0
@@ -33,15 +33,27 @@ conan_cmake_run(CONANFILE conanfile.txt
 
 ## Find third-party packages
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_BINARY_DIR})
+find_package(Boost REQUIRED)
 find_package(fmt REQUIRED)
 find_package(sigc++-3 REQUIRED)
-
+find_package(signals-light REQUIRED)
 
 ## Target
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
+
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
+    ${Boost_LIBRARIES}
     ${fmt_LIBRARIES}
     ${sigc++-3_LIBRARIES}
+    ${signals-light_LIBRARIES}
 )
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
-target_include_directories(${PROJECT_NAME} PRIVATE include)
+
+target_include_directories(${PROJECT_NAME}
+  PRIVATE
+    include
+  SYSTEM PRIVATE
+    ${Boost_INCLUDE_DIRS}
+    ${sigc++-3_INCLUDE_DIRS}
+    ${signals-light_INCLUDE_DIRS}
+)

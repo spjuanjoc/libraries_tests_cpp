@@ -1,6 +1,8 @@
 [requires]
-  libsigcpp/3.0.7
+  boost/1.84.0
   fmt/10.0.0
+  libsigcpp/3.0.7
+  signals-light/cci.20210616
 
 
 [generators]

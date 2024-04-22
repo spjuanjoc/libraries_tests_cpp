@@ -30,7 +30,7 @@ public:
    *
    * @return The signal object.
    */
-  PrintSignal signalPrinted() { return m_print_signal; };
+  PrintSignal signalPrinted() const { return m_print_signal; };
 
   void print(const std::int32_t& value)
   {
@@ -104,4 +104,11 @@ public:
 private:
   sigc::connection                   m_slot;
   std::shared_ptr<ObservablePrinter> m_printer;
+};
+
+class Observer3
+{
+public:
+  void onPrint(const std::int32_t& value) { fmt::println("Observed3 {}", value); }
+  static void onPrint2(const std::int32_t& value) { fmt::println("Observed3s {}", value); }
 };
