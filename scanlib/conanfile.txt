@@ -1,0 +1,6 @@
+[requires]
+  scnlib/1.1.3
+  fmt/10.2.1
+
+[generators]
+  cmake_find_package

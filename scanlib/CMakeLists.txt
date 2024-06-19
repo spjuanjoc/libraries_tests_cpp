@@ -1,14 +1,29 @@
-cmake_minimum_required(VERSION 3.22.1)
+cmake_minimum_required(VERSION 3.28)
 
-project(signals_cpp
-  VERSION "0.0.1"
-  DESCRIPTION "Signals and slots in C++"
+project(scanlib
+  VERSION "1.0.0"
+  DESCRIPTION "scnlib: scanf for modern C++"
   LANGUAGES CXX
+)
+
+# Options
+option(ENABLE_WERROR   "Treat compiler warnings as errors" False)
+
+
+# GLOB source files
+file(GLOB_RECURSE
+  SOURCE_FILES
+    main.cpp
 )
 
 
 ## Set the project as an executable target
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+
+
+## Compiler options
+include(../cmake/CompilerOptions.cmake)
+set_compiler_options(${PROJECT_NAME})
 
 
 ## Setup Conan < 2.0
@@ -33,27 +48,23 @@ conan_cmake_run(CONANFILE conanfile.txt
 
 ## Find third-party packages
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_BINARY_DIR})
-find_package(Boost REQUIRED)
 find_package(fmt REQUIRED)
-find_package(sigc++-3 REQUIRED)
-find_package(signals-light REQUIRED)
+find_package(scn REQUIRED)
+
 
 ## Target
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
+target_include_directories(${PROJECT_NAME}
+  SYSTEM PRIVATE # These directories must be placed before other non-system directories
+    ${fmt_INCLUDE_DIRS}
+    ${scn_INCLUDE_DIRS}
+  PUBLIC
+    include
+)
+
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
-    ${Boost_LIBRARIES}
     ${fmt_LIBRARIES}
-    ${sigc++-3_LIBRARIES}
-    ${signals-light_LIBRARIES}
+    ${scn_LIBRARIES}
 )
 
-target_include_directories(${PROJECT_NAME}
-  PRIVATE
-    include
-  SYSTEM PRIVATE
-    ${Boost_INCLUDE_DIRS}
-    ${sigc++-3_INCLUDE_DIRS}
-    ${signals-light_INCLUDE_DIRS}
-)
