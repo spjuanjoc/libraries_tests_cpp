@@ -1,10 +1,9 @@
-# scnlib
+# Linear Algebra
 
-https://github.com/eliaskosunen/scnlib
+Libraries for Linear Algebra, before std::linalg C++26
 
-See version 1
-https://v1.scnlib.dev/en/master/
-
-See version 2
-requires gcc > 11
-https://www.scnlib.dev/latest/index.html
+| Library   | Package Name | Version | Docs                                                           |
+|:----------|:-------------|:-------:|:---------------------------------------------------------------|
+| Armadillo | Armadillo    | 12.6.4  | [arma](https://arma.sourceforge.net/)                          |
+| Eigen     | Eigen3       |  3.4.0  | [eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page) |
+| openBLAS  | OpenBLAS     |   --    | [openblas](https://www.openblas.net/)                          |
