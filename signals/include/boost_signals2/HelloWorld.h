@@ -5,6 +5,8 @@
  * @date    2024-04-21
  */
 
+#ifndef SIGNALS2_HELLOWORLD_H
+#define SIGNALS2_HELLOWORLD_H
 
 #include <fmt/core.h>
 
@@ -26,13 +28,13 @@ runSignals2()
 {
   boost::signals2::signal<void(const std::string&)> signal_print;
 
-  auto slot1 = signal_print.connect(
+  const auto slot1 = signal_print.connect(
     [](const auto& name)
     {
       onPrint(name);
     });
 
-  auto slot2 = signal_print.connect(&onPrint);
+  const auto slot2 = signal_print.connect(&onPrint);
 
   signal_print("Hello signals2");
 
@@ -41,3 +43,5 @@ runSignals2()
 }
 
 }  // namespace Signals2
+
+#endif  // SIGNALS2_HELLOWORLD_H

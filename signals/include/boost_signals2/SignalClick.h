@@ -8,13 +8,10 @@
 #ifndef SIGNALS2_SIGNALCLICK_H
 #define SIGNALS2_SIGNALCLICK_H
 
-#include <iostream>
-
 #include <boost/signals2/signal.hpp>
 
 namespace Signals2
 {
-
 
 //[ passing_slots_defs_code_snippet
 // a pretend GUI button
@@ -47,7 +44,7 @@ Button::simulateClick()
   onClick(52, 38);
 }
 
-void
+static void
 printCoordinates(long x, long y)
 {
   fmt::println("({},{})", x, y);

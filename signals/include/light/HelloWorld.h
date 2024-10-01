@@ -5,6 +5,8 @@
  * @date    2024-04-24
  */
 
+#ifndef LIGHT_HELLOWORLD_H
+#define LIGHT_HELLOWORLD_H
 
 #include <fmt/core.h>
 
@@ -25,13 +27,13 @@ runSignalsLight()
 {
   sl::Signal<void(const std::string&)> signal_print;
 
-  auto slot1 = signal_print.connect(
+  const auto slot1 = signal_print.connect(
     [](const auto& name)
     {
       onPrint(name);
     });
 
-  auto slot2 = signal_print.connect(&onPrint);
+  signal_print.connect(&onPrint);
 
   signal_print("Hello signals-light");
 
@@ -43,3 +45,5 @@ runSignalsLight()
 }
 
 }  // namespace SignalsLight
+
+#endif  // LIGHT_HELLOWORLD_H

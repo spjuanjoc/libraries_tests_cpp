@@ -4,11 +4,11 @@
  * @author  spjuanjoc
  * @date    2024-04-17
  */
-
+#ifndef SIGCPP_HELLOWORLD_H
+#define SIGCPP_HELLOWORLD_H
 
 #include <fmt/core.h>
 
-#include <iostream>
 #include <string>
 
 #include <sigc++/sigc++.h>
@@ -33,3 +33,5 @@ runSigcpp()
 }
 
 }  // namespace sigcpp
+
+#endif  // SIGCPP_HELLOWORLD_H

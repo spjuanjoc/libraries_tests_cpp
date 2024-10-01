@@ -23,8 +23,8 @@ main()
   PrintObserver2 observer2;
   Observer3      observer3;
 
-  printer.signalPrinted().connect(sigc::mem_fun(observer3, &Observer3::onPrint));  // for a non-static member
-  printer.signalPrinted().connect(&Observer3::onPrint2);                           // for a static member
+  auto connection1 = printer.signalPrinted().connect(sigc::mem_fun(observer3, &Observer3::onPrint));  // for a non-static member
+  auto connection2 = printer.signalPrinted().connect(&Observer3::onPrint2);                           // for a static member
 
   observer.subscribe();
   observer2.subscribe();

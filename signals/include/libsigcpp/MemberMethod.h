@@ -5,9 +5,11 @@
  * @date    2024-04-17
  */
 
+#ifndef MEMBERMETHOD_H
+#define MEMBERMETHOD_H
+
 #include <fmt/core.h>
 
-#include <iostream>
 #include <string>
 
 #include <sigc++/sigc++.h>
@@ -32,14 +34,14 @@ public:
    */
   PrintSignal signalPrinted() const { return m_print_signal; };
 
-  void print(const std::int32_t& value)
+  void print(const std::int32_t& value) const
   {
     fmt::println("Printing {}", value);
     onPrint(value);
   };
 
 protected:
-  void onPrint(const std::int32_t& value)
+  void onPrint(const std::int32_t& value) const
   {
     m_print_signal.emit(value);
     fmt::println("Printed {}", value);
@@ -94,12 +96,11 @@ public:
       });
   }
 
-  void print(const std::int32_t& value)
+  void print(const std::int32_t& value) const
   {
     fmt::println("Print as member");
     m_printer->print(value);
   };
-
 
 private:
   sigc::connection                   m_slot;
@@ -109,6 +110,8 @@ private:
 class Observer3
 {
 public:
-  void onPrint(const std::int32_t& value) { fmt::println("Observed3 {}", value); }
+  void        onPrint(const std::int32_t& value) { fmt::println("Observed3 {}", value); }
   static void onPrint2(const std::int32_t& value) { fmt::println("Observed3s {}", value); }
 };
+
+#endif  // MEMBERMETHOD_H
