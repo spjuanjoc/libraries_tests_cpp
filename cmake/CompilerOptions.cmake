@@ -17,8 +17,15 @@
 # Usage:
 #   set_compiler_options(${TARGET_NAME})
 #
+# With extra options:
+#   set_compiler_options(${TARGET_NAME} EXTRA_MSVC_OPTIONS /w14928)                     # Add extra MSVC-only options
+#   set_compiler_options(${TARGET_NAME} EXTRA_GCC_OPTIONS -Wno-deprecated-declarations) # Add extra gcc-only options
+#   set_compiler_options(${TARGET_NAME} EXTRA_CLANG_OPTIONS -Wno-class-varargs)         # Add extra clang-only options
+#   set_compiler_options(${TARGET_NAME} EXTRA_OPTIONS -Wno-cast-align)                  # Add extra options for clang and gcc
 
 function(set_compiler_options TARGET_NAME)
+
+  cmake_parse_arguments(PARSE_ARGV 1 ARG "" "" "EXTRA_OPTIONS;EXTRA_GCC_OPTIONS;EXTRA_CLANG_OPTIONS;EXTRA_MSVC_OPTIONS")
 
   set(MSVC_OPTIONS
     /W4
@@ -115,11 +122,11 @@ function(set_compiler_options TARGET_NAME)
 
   ## Set the options for each compiler.
   if(MSVC)
-    set(COMPILER_OPTIONS ${MSVC_OPTIONS})
+    set(COMPILER_OPTIONS ${MSVC_OPTIONS} ${ARG_EXTRA_MSVC_OPTIONS})
   elseif(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")
-    set(COMPILER_OPTIONS ${CLANG_OPTIONS})
+    set(COMPILER_OPTIONS ${CLANG_OPTIONS} ${ARG_EXTRA_CLANG_OPTIONS} ${ARG_EXTRA_OPTIONS})
   elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    set(COMPILER_OPTIONS ${GCC_OPTIONS})
+    set(COMPILER_OPTIONS ${GCC_OPTIONS} ${ARG_EXTRA_GCC_OPTIONS} ${ARG_EXTRA_OPTIONS})
     if(ENABLE_COVERAGE)
       set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage" PARENT_SCOPE) # PARENT_SCOPE required since this is called from a function
       message(STATUS "coverage enabled: ${CMAKE_CXX_FLAGS}")
