@@ -26,17 +26,12 @@ onPrint(const std::string& message)
 static void
 runSignals2()
 {
-  boost::signals2::signal<void(const std::string&)> signal_print;
+  boost::signals2::signal<void(const std::string&)> printTextSignal;
 
-  const auto slot1 = signal_print.connect(
-    [](const auto& name)
-    {
-      onPrint(name);
-    });
+  const auto slot1 = printTextSignal.connect([](const auto& name) { onPrint(name); });
+  const auto slot2 = printTextSignal.connect(&onPrint);
 
-  const auto slot2 = signal_print.connect(&onPrint);
-
-  signal_print("Hello signals2");
+  printTextSignal("Hello signals2");
 
   slot1.disconnect();
   slot2.disconnect();

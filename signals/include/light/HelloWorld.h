@@ -25,23 +25,19 @@ onPrint(const std::string& message)
 static void
 runSignalsLight()
 {
-  sl::Signal<void(const std::string&)> signal_print;
+  sl::Signal<void(const std::string&)> printTextSignal;
 
-  const auto slot1 = signal_print.connect(
-    [](const auto& name)
-    {
-      onPrint(name);
-    });
+  const auto slot1 = printTextSignal.connect([](const auto& name) { onPrint(name); });
 
-  signal_print.connect(&onPrint);
+  printTextSignal.connect(&onPrint);
 
-  signal_print("Hello signals-light");
+  printTextSignal("Hello signals-light");
 
-  fmt::println("Slots count: {}", signal_print.slot_count());
+  fmt::println("Slots count: {}", printTextSignal.slot_count());
 
-  signal_print.disconnect(slot1);
+  printTextSignal.disconnect(slot1);
 
-  fmt::println("Slots count: {}", signal_print.slot_count());
+  fmt::println("Slots count: {}", printTextSignal.slot_count());
 }
 
 }  // namespace SignalsLight

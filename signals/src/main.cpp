@@ -18,7 +18,7 @@ main()
       fmt::println("Slot connected. Value printed: {}", value);
     });
 
-  printer.print(10);
+  printer.print(1);
   PrintObserver  observer(printer);
   PrintObserver2 observer2;
   Observer3      observer3;

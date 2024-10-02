@@ -25,11 +25,11 @@ onPrint(const std::string& message)
 static void
 runSigcpp()
 {
-  sigc::signal<void(const std::string&)> signal_print;
+  sigc::signal<void(const std::string&)> printTextSignal;
 
-  signal_print.connect(sigc::ptr_fun(&onPrint));
+  printTextSignal.connect(sigc::ptr_fun(&onPrint));
 
-  signal_print.emit("hello sigc++-3\n");
+  printTextSignal.emit("hello sigc++-3\n");
 }
 
 }  // namespace sigcpp

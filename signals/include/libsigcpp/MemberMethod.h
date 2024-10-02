@@ -43,8 +43,8 @@ public:
 protected:
   void onPrint(const std::int32_t& value) const
   {
-    m_print_signal.emit(value);
     fmt::println("Printed {}", value);
+    m_print_signal.emit(value);
   }
 
 private:
