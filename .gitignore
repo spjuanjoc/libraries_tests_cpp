@@ -1,6 +1,8 @@
 # build folders
 *cmake-build-*/
-/build
+build/
 
 # IDE settings
 .idea
+
+CMakeUserPresets.json
