@@ -1,9 +1,12 @@
 [requires]
   boost/1.84.0
-  fmt/10.0.0
+  fmt/11.2.0
   libsigcpp/3.0.7
   signals-light/cci.20210616
 
-
 [generators]
-  cmake_find_package
+  CMakeDeps
+  CMakeToolchain
+
+[layout]
+  cmake_layout
