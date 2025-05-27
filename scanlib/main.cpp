@@ -1,26 +1,26 @@
-#include <scn/scan/scan.h>
-#include <fmt/core.h>
+#include <fmt/base.h>
+#include <scn/scan.h>
 
-int main() {
-  int an_int;
-  scn::scan("123", "{}", an_int);
+int
+main()
+{
+  const auto an_int = scn::scan<int>("123", "{}");
 
-  double a_double;
-  scn::scan("3.14", "{}", a_double);
+  const auto a_double = scn::scan<double>("3.14", "{}");
 
-  int int_a, int_b;
-  scn::scan("0 1 2", "{} {}", int_a, int_b);
+  const auto ints           = scn::scan<int, int>("0 1 2", "{} {}");
+  const auto [int_a, int_b] = ints->values();
 
-  std::string a_string;
-  scn::scan("hello world", "{}", a_string);
+  const auto a_string = scn::scan<std::string>("hello world", "{}");
   // str == "hello"
 
-  fmt::print("int: {}, double: {}, multi: ({},{}), string: {}",
-    an_int,
-    a_double,
+  fmt::print(
+    "int: {}, double: {}, multi: ({},{}), string: {}",
+    an_int->value(),
+    a_double->value(),
     int_a,
     int_b,
-    a_string
-    );
+    a_string->value());
 
+  return 0;
 }
