@@ -25,30 +25,12 @@ add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 include(../cmake/CompilerOptions.cmake)
 set_compiler_options(${PROJECT_NAME})
 
+## Find third-party packages for conan > 2
+set(TOOLCHAIN_FILE_PATH ${CMAKE_BINARY_DIR}/build/${CMAKE_BUILD_TYPE}/generators)
+set(CMAKE_TOOLCHAIN_FILE ${CMAKE_TOOLCHAIN_FILE} ${TOOLCHAIN_FILE_PATH}/conan_toolchain.cmake)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${TOOLCHAIN_FILE_PATH})
+set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${TOOLCHAIN_FILE_PATH})
 
-## Setup Conan < 2.0
-if (NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
-  message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
-  file(DOWNLOAD
-    "https://raw.githubusercontent.com/conan-io/cmake-conan/master/conan.cmake"
-    "${CMAKE_BINARY_DIR}/conan.cmake"
-  )
-endif ()
-
-
-include(${CMAKE_BINARY_DIR}/conan.cmake)
-conan_cmake_autodetect(settings)
-conan_check(REQUIRED)
-conan_cmake_run(CONANFILE conanfile.txt
-  BASIC_SETUP NO_OUTPUT_DIRS
-  BUILD missing
-  SETTINGS ${settings}
-)
-
-
-
-## Find third-party packages
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_BINARY_DIR})
 find_package(fmt REQUIRED)
 find_package(Armadillo REQUIRED)
 find_package(Eigen3 REQUIRED)

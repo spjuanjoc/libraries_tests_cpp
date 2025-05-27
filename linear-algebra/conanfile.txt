@@ -5,4 +5,8 @@
  # openblas/0.3.27
 
 [generators]
-  cmake_find_package
+  CMakeDeps
+  CMakeToolchain
+
+[layout]
+  cmake_layout
