@@ -6,11 +6,12 @@ project(fmt_cpp
   LANGUAGES CXX
 )
 
-# Options
+
+## Set the user options
 option(ENABLE_WERROR   "Treat compiler warnings as errors" False)
 
 
-# GLOB source files
+# GLOB the source files
 file(GLOB_RECURSE
   SOURCE_FILES
     main.cpp
@@ -21,25 +22,16 @@ file(GLOB_RECURSE
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 
-## Compiler options
+## Add compiler options
 include(../cmake/CompilerOptions.cmake)
 set_compiler_options(${PROJECT_NAME})
 
 
-## Find third-party packages for conan > 2
-set(TOOLCHAIN_FILE_PATH ${CMAKE_BINARY_DIR}/build/${CMAKE_BUILD_TYPE}/generators)
-set(CMAKE_TOOLCHAIN_FILE ${CMAKE_TOOLCHAIN_FILE} ${TOOLCHAIN_FILE_PATH}/conan_toolchain.cmake)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${TOOLCHAIN_FILE_PATH})
-set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${TOOLCHAIN_FILE_PATH})
-
-message(STATUS "CMAKE_TOOLCHAIN_FILE: ${CMAKE_TOOLCHAIN_FILE}")
-message(STATUS "CMAKE_MODULE_PATH: ${CMAKE_MODULE_PATH}")
-message(STATUS "CMAKE_PREFIX_PATH: ${CMAKE_PREFIX_PATH}")
-
+## Find third-party libraries
 find_package(fmt REQUIRED)
 
 
-## Target
+## Configure target options
 target_include_directories(${PROJECT_NAME}
   SYSTEM PRIVATE # These directories must be placed before other non-system directories
     ${fmt_INCLUDE_DIRS}
