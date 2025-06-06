@@ -25,3 +25,13 @@ They are used for asynchronous io.
 
 This example does not refer to the system signals std::signal, such as
 SIGTERM, SIGSEGV, and so on.
+
+
+## Build
+
+```shell
+mkcd build
+cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=~/code/hub/libraries_tests_cpp/cmake/conan_provider.cmake -G Ninja
+cmake --build .
+./signals_cpp 
+```

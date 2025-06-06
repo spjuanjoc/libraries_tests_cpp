@@ -1,6 +1,7 @@
 # fmt
 
 Hello world for the library `{fmt}` using cmake-conan for conan 2.
+A formatting library. See [fmt.dev](https://fmt.dev/)
 
 ## Validation of the conan profile
 
@@ -29,7 +30,7 @@ build_type=Debug
 
 ```shell
 mkcd build
-cmake -B ./ -S ../ -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=~/code/hub/libraries_tests_cpp/cmake/conan_provider.cmake -DCMAKE_BUILD_TYPE=Debug -G Ninja
+cmake .. -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=/code/hub/libraries_tests_cpp/cmake/conan_provider.cmake -DCMAKE_BUILD_TYPE=Debug -G Ninja
 cmake --build .
 ./fmt_cpp 
 ```
