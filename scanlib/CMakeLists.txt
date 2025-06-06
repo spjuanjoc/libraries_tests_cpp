@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.28)
 
-project(scanlib
+project(scanlib_cpp
   VERSION "1.0.0"
   DESCRIPTION "scnlib: scanf for modern C++"
   LANGUAGES CXX
@@ -26,12 +26,7 @@ include(../cmake/CompilerOptions.cmake)
 set_compiler_options(${PROJECT_NAME})
 
 
-## Find third-party packages for conan > 2
-set(TOOLCHAIN_FILE_PATH ${CMAKE_BINARY_DIR}/build/${CMAKE_BUILD_TYPE}/generators)
-set(CMAKE_TOOLCHAIN_FILE ${CMAKE_TOOLCHAIN_FILE} ${TOOLCHAIN_FILE_PATH}/conan_toolchain.cmake)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${TOOLCHAIN_FILE_PATH})
-set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${TOOLCHAIN_FILE_PATH})
-
+## Find third-party libraries
 find_package(fmt REQUIRED)
 find_package(scn REQUIRED)
 
@@ -51,4 +46,3 @@ target_link_libraries(${PROJECT_NAME}
     ${fmt_LIBRARIES}
     ${scn_LIBRARIES}
 )
-

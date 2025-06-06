@@ -25,12 +25,7 @@ add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 include(../cmake/CompilerOptions.cmake)
 set_compiler_options(${PROJECT_NAME})
 
-## Find third-party packages
-## Find third-party packages for conan > 2
-set(TOOLCHAIN_FILE_PATH ${CMAKE_BINARY_DIR}/build/${CMAKE_BUILD_TYPE}/generators)
-set(CMAKE_TOOLCHAIN_FILE ${CMAKE_TOOLCHAIN_FILE} ${TOOLCHAIN_FILE_PATH}/conan_toolchain.cmake)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${TOOLCHAIN_FILE_PATH})
-set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${TOOLCHAIN_FILE_PATH})
+## Find third-party libraries
 find_package(nlohmann_json REQUIRED)
 
 

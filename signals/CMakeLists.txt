@@ -6,8 +6,10 @@ project(signals_cpp
   LANGUAGES CXX
 )
 
+
 # Options
 option(ENABLE_WERROR   "Treat compiler warnings as errors" False)
+
 
 ## Set the project as an executable target
 add_executable(${PROJECT_NAME} src/main.cpp)
@@ -17,16 +19,12 @@ add_executable(${PROJECT_NAME} src/main.cpp)
 include(../cmake/CompilerOptions.cmake)
 set_compiler_options(${PROJECT_NAME})
 
-## Find third-party packages for conan > 2
-set(TOOLCHAIN_FILE_PATH ${CMAKE_BINARY_DIR}/build/${CMAKE_BUILD_TYPE}/generators)
-set(CMAKE_TOOLCHAIN_FILE ${CMAKE_TOOLCHAIN_FILE} ${TOOLCHAIN_FILE_PATH}/conan_toolchain.cmake)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${TOOLCHAIN_FILE_PATH})
-set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${TOOLCHAIN_FILE_PATH})
-
+## Find third-party libraries
 find_package(Boost REQUIRED)
 find_package(fmt REQUIRED)
 find_package(sigc++-3 REQUIRED)
 find_package(signals-light REQUIRED)
+
 
 ## Target
 target_include_directories(${PROJECT_NAME}
@@ -47,4 +45,3 @@ target_link_libraries(${PROJECT_NAME}
     ${sigc++-3_LIBRARIES}
     ${signals-light_LIBRARIES}
 )
-
